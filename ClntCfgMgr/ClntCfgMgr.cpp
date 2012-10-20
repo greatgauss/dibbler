@@ -248,8 +248,9 @@ bool TClntCfgMgr::matchParsedSystemInterfaces(ClntParser *parser) {
 
         List(TIPv6Addr) dnsList;
         dnsList.clear();
+        Log(Warning) << "ggggggggggggggggg." << LogEnd;
         parser->ParserOptStack.getLast()->setDNSServerLst(&dnsList);
-
+        Log(Warning) << "GGGGGGGGGGGGGGGGG." << LogEnd;
         int cnt = 0;
         ClntIfaceMgr().firstIface();
         while ( ifaceIface = ClntIfaceMgr().getIface() ) {

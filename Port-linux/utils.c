@@ -527,6 +527,34 @@ int print_timestamp(FILE *fp)
 	return 0;
 }
 
+size_t getline(char **lineptr, size_t *n, FILE *stream)
+{
+	int ch;
+	char *line = *lineptr;
+	size_t alloced = *n;
+	size_t len = 0;
+
+	do {
+		ch = fgetc(stream);
+		if (ch == EOF)
+			break;
+		if (len + 1 >= alloced) {
+			alloced += alloced/4 + 64;
+			line = realloc(line, alloced);
+		}
+		line[len++] = ch;
+	} while (ch != '\n');
+
+	if (len == 0)
+		return -1;
+
+	line[len] = '\0';
+	*lineptr = line;
+	*n = alloced;
+	return len;
+}
+
+
 int cmdlineno;
 
 /* Like glibc getline but handle continuation lines and comments */

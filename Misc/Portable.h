@@ -26,6 +26,7 @@
 #endif
 #if defined(LINUX) || defined(BSD)
 #include <arpa/inet.h>
+#include <sys/select.h>
 #endif
 
 #ifdef WIN32

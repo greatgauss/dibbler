@@ -30,7 +30,7 @@
 #include <assert.h>
 #include <string.h>
 
-#include "hmac.h"
+#include "nettle/hmac.h"
 
 #include "memxor.h"
 #include "nettle-internal.h"

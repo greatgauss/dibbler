@@ -1,5 +1,0 @@
-// Microsoft Visual C++ generated resource script.
-//
-#include "resource-requestor.h"
-
-IDI_ICON1               ICON                    "server-win32.ico"

@@ -54,6 +54,8 @@
 
 #include <string.h>
 
+#define restrict
+
 /* C89 compliant way to cast 'char' to 'unsigned char'. */
 static inline unsigned char
 to_uchar (char ch)

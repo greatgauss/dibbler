@@ -532,7 +532,10 @@ void TClntTransMgr::relayMsg(SPtr<TClntMsg> msgAnswer)
                 msgAnswer->setIface(msgQuestion->getIface());
             }
 
+            Log(Warning) << "aaaaaaaaaaaaa."<< LogEnd;
             handleResponse(msgQuestion, msgAnswer);
+            Log(Warning) << "AAAAAAAAAAAAA."<< LogEnd;
+
             break;
         }
     }

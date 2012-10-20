@@ -12,6 +12,7 @@
 #include <string.h>
 #include "Portable.h"
 #include <sstream>
+#include <cctype>
 #include "DHCPConst.h"
 #include "OptGeneric.h"
 

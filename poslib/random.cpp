@@ -35,8 +35,8 @@ class _random_system {
  public:
   _random_system() {
 #ifndef _WIN32
-    initstate(time(NULL), randomstate, sizeof(randomstate));
-    setstate(randomstate);
+    //initstate(time(NULL), randomstate, sizeof(randomstate));
+    //setstate(randomstate);
     srandom(time(NULL));
 #else
     srand(time(NULL));

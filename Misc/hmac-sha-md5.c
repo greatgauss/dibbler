@@ -14,7 +14,6 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include "hmac.h"
 #include "md5.h"
 #include "sha1.h"
 #include "sha256.h"

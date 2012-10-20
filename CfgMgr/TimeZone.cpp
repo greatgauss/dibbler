@@ -8,6 +8,7 @@
  */
 
 #include "TimeZone.h"
+#include <cctype>
 
 using namespace std;
 

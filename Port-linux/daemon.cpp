@@ -48,7 +48,7 @@ pid_t getPID(const char * file) {
     ifstream pidfile(file);
     if (!pidfile.is_open()) 
 	return LOWLEVEL_ERROR_FILE;
-    pid_t pid;
+    pid_t pid = 0;
     pidfile >> pid;
     return pid;
 }
@@ -241,7 +241,7 @@ int stop(const char * pidfile) {
 		return -1;
 	    }
 	    ptrace(PTRACE_CONT, pid, NULL,
-		    WIFSTOPPED(p_status) ? WSTOPSIG(p_status) : 0);
+		    (void*)(WIFSTOPPED(p_status) ? WSTOPSIG(p_status) : 0));
 	} while (! (WIFEXITED(p_status) || WIFSIGNALED(p_status)) );
 	cout << "Done." << endl;
     }

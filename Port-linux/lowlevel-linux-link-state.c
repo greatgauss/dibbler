@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <bits/sigthread.h>
+#include <sys/socket.h>
 #include "Portable.h"
 #include "interface.h"
 

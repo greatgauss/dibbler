@@ -836,8 +836,9 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
 
 	    // configure received IA
 	    clntOpt->setContext(duid, 0/* srvAddr used is unicast */, this->Iface);
+        Log(Warning) << "dddddddddddddddddd. "<< LogEnd;
 	    clntOpt->doDuties();
-
+        Log(Warning) << "DDDDDDDDDDDDDDDDDD. "<< LogEnd;
 	    // delete that IA from request list
 	    for (TOptList::iterator requestOpt = Options.begin(); requestOpt!=Options.end(); ++requestOpt)
 	    {
@@ -923,7 +924,9 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
             {
                 SPtr<TOptAddrLst> dnsservers = (Ptr*) option;
                 cfgIface->setDNSServerState(STATE_CONFIGURED);
+                Log(Warning) << "bbbbbbbbbbbbbbbb. " << LogEnd;
                 iface->setDNSServerLst(duid, reply->getAddr(), dnsservers->getAddrLst());
+                Log(Warning) << "BBBBBBBBBBBBBBBB. " << LogEnd;
                 break;
             }
         case OPTION_NIS_SERVERS:
@@ -1017,11 +1020,12 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
 	    if ( optORO && (optORO->isOption(option->getOptType())) )
 		optORO->delOption(option->getOptType());
 
-	    //Log(Debug) << "Setting up option " << option->getOptType() << "." << LogEnd;
+	    Log(Debug) << "Setting up option " << option->getOptType() << "." << LogEnd;
 	    if (!option->doDuties()) {
 		Log(Warning) << "Setting option " << option->getOptType() << " failed." << LogEnd;
 		// do nothing about it
 	    }
+	    Log(Debug) << "FUCK Setting up option " << option->getOptType() << "." << LogEnd;
 
 
 	    // find options specified in this message

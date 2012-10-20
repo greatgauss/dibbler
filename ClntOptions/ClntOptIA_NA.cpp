@@ -335,6 +335,7 @@ bool TClntOptIA_NA::doDuties() {
                 ptrIA->setDUID(this->DUID);
 
                 // ... and in IfaceMgr - 
+                Log(Warning) << "FUCK GKJ 0." << LogEnd;
                 ptrIface->addAddr(ptrOptAddr->getAddr(), ptrOptAddr->getPref(), ptrOptAddr->getValid(), prefixLen);
             } 
             else {

@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <cctype>
 #include <string.h>
 
 #include "DUID.h"

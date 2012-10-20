@@ -17,7 +17,7 @@
 #include "Msg.h"
 #include "Opt.h"
 #include "Logger.h"
-#include "hmac.h"
+#include "Misc/hmac.h"
 
 class TNotifyScriptParams;
 

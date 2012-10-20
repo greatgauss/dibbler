@@ -27,7 +27,7 @@
 # include "config.h"
 #endif
 
-#include "hmac.h"
+#include "nettle/hmac.h"
 
 void
 hmac_md5_set_key(struct hmac_md5_ctx *ctx,
