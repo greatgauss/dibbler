@@ -1,6 +1,6 @@
 LOCAL_PATH:= $(call my-dir)
 
-LOCAL_PATH:=$(call my-dir)
+etc_dir := $(TARGET_OUT)/etc/dibbler
  
 include $(CLEAR_VARS)
 
@@ -12,6 +12,14 @@ include $(BUILD_MULTI_PREBUILT)
 
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := client.conf
+LOCAL_MODULE_TAGS := optional 
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(etc_dir)
+LOCAL_SRC_FILES := client.conf
+include $(BUILD_PREBUILT)
+include $(CLEAR_VARS)
+
 LOCAL_SRC_FILES:= \
 		poslib/dnsmessage.cpp \
 		poslib/dnssec-sign.cpp \

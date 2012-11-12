@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include "DHCPConst.h"
+#include <utils/Log.h>
 
 #define Log(X) logger :: log##X ()
 #define LogEnd logger :: endl

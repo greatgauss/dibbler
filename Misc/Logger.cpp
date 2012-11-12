@@ -32,7 +32,7 @@ namespace logger {
     Elogmode logmode = LOGMODE_DEFAULT; /* default logmode */
     ofstream logFile;    // file where wanted msgs are stored
     string logFileName;
-    bool logFileMode = false;	// loging into file is active
+    bool logFileMode = true;	// loging into file is active
     bool echo = true;		// copy log on tty
     int curLogEntry = 8;	// Log level of currently constructed message
     bool color = false;

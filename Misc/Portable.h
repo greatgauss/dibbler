@@ -158,7 +158,7 @@ struct link_state_notify_t
 #endif
 
 #if defined(LINUX) || defined(BSD) || defined(SUNOS)
-#define WORKDIR            "/var/lib/dibbler"
+#define WORKDIR            "/data/misc/dibbler"
 #define DEFAULT_SCRIPT     ""
 #define CLNTCONF_FILE      "/etc/dibbler/client.conf"
 #define SRVCONF_FILE       "/etc/dibbler/server.conf"
@@ -166,12 +166,12 @@ struct link_state_notify_t
 #define RESOLVCONF_FILE    "/etc/resolv.conf"
 #define NTPCONF_FILE       "/etc/ntp.conf"
 #define RADVD_FILE         "/etc/dibbler/radvd.conf"
-#define CLNTPID_FILE       "/var/lib/dibbler/client.pid"
-#define SRVPID_FILE        "/var/lib/dibbler/server.pid"
-#define RELPID_FILE        "/var/lib/dibbler/relay.pid"
-#define CLNTLOG_FILE       "/var/log/dibbler/dibbler-client.log"
-#define SRVLOG_FILE        "/var/log/dibbler/dibbler-server.log"
-#define RELLOG_FILE        "/var/log/dibbler/dibbler-relay.log"
+#define CLNTPID_FILE       WORKDIR "/client.pid"
+#define SRVPID_FILE        WORKDIR "/server.pid"
+#define RELPID_FILE        WORKDIR "/relay.pid"
+#define CLNTLOG_FILE       WORKDIR "/dibbler-client.log"
+#define SRVLOG_FILE        WORKDIR "/dibbler-server.log"
+#define RELLOG_FILE        WORKDIR "/dibbler-relay.log"
 #define NULLFILE           "/dev/null"
 
 /* those defines were initially used on Linux only, but hopefully 
