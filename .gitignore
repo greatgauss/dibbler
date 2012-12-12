@@ -1,5 +1,4 @@
 *.o
-*.a
 *.Po
 *.lo
 *.la
@@ -52,4 +51,3 @@ bison++/configure.log
 config.log
 config.status
 doc/doxygen.cfg
-include/dibbler-config.h
