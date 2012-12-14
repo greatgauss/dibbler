@@ -19,7 +19,7 @@
 #include "Portable.h"
 #include "Logger.h"
 
-
+#include <cutils/properties.h>
 
 using namespace std;
 /*
@@ -215,9 +215,12 @@ int TIfaceIface::getHardwareType() {
  * (wrapper around pure C function)
  */
 bool TIfaceIface::addAddr(SPtr<TIPv6Addr> addr,long pref, long valid, int prefixLen) {
+	char addr_prop_name[PROPERTY_KEY_MAX];
+    //char addr_prop_value[PROPERTY_VALUE_MAX] = {'\0'};
     Log(Notice) << "Address " << addr->getPlain() << "/" << prefixLen << " added to "
                 << getFullName() << " interface." << LogEnd;
-
+	snprintf(addr_prop_name, sizeof(addr_prop_name),"dibbler.%s.ipaddress", getName());
+	property_set(addr_prop_name, addr->getPlain());
     return (bool)ipaddr_add(this->Name, this->ID, addr->getPlain(),
                             pref, valid, prefixLen);
 }
@@ -227,8 +230,12 @@ bool TIfaceIface::addAddr(SPtr<TIPv6Addr> addr,long pref, long valid, int prefix
  * (wrapper around pure C function)
  */
 bool TIfaceIface::delAddr(SPtr<TIPv6Addr> addr, int prefixLen) {
-    Log(Notice) << "Address " << addr->getPlain() << "/" << prefixLen << " deleted from "
+    char addr_prop_name[PROPERTY_KEY_MAX];
+    char addr_prop_value[PROPERTY_VALUE_MAX] = {'\0'};
+	Log(Notice) << "Address " << addr->getPlain() << "/" << prefixLen << " deleted from "
                 << getFullName() << " interface." << LogEnd;
+	snprintf(addr_prop_name, sizeof(addr_prop_name),"dibbler.%s.ipaddress",getName());
+	property_set(addr_prop_name, "");
     return (bool)ipaddr_del( this->Name, this->ID, addr->getPlain(), prefixLen);
 }
 

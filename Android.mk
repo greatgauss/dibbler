@@ -189,11 +189,13 @@ LOCAL_CFLAGS := \
 
 LOCAL_STATIC_LIBRARIES := libdibbler_supc++
 LOCAL_SHARED_LIBRARIES := \
-			libstlport
+			libstlport \
+			libcutils
 
 LOCAL_C_INCLUDES := \
                 external/stlport/stlport \
                 bionic \
+		external/system/core/include \
 		$(LOCAL_PATH) \
 		$(LOCAL_PATH)/include \
 		$(LOCAL_PATH)/nettle \

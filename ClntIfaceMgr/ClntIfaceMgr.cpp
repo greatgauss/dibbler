@@ -115,7 +115,7 @@ SPtr<TClntMsg> TClntIfaceMgr::select(unsigned int timeout)
         int ifaceid = ptrIface->getID();
         Log(Debug) << "Received " << bufsize << " bytes on interface " << ptrIface->getFullName()
                    << " (socket=" << sockid << ", addr=" << *peer << ")." << LogEnd;
-
+		//Log(Info) <<"========"<< buf << LogEnd;
         switch (msgtype) {
         case ADVERTISE_MSG:
             ptr = new TClntMsgAdvertise(ifaceid,peer,buf,bufsize);

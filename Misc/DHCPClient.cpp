@@ -176,6 +176,7 @@ void TDHCPClient::run()
 
             ClntTransMgr().relayMsg(msg);
         }
+
     }
     Log(Notice) << "Bye bye." << LogEnd;
 }

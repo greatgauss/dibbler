@@ -13,6 +13,7 @@
 #include "ClntIfaceIface.h"
 #include "Portable.h"
 #include "Logger.h"
+#include <cutils/properties.h>
 #ifdef MINGWBUILD
 #include <io.h>
 #endif
@@ -62,6 +63,8 @@ bool TClntIfaceIface::setDNSServerLst(SPtr<TDUID> duid, SPtr<TIPv6Addr> srv,
                                       List(TIPv6Addr) addrs) {
     // remove old addresses
     SPtr<TIPv6Addr> old, addr;
+	char addr_prop_name[PROPERTY_KEY_MAX];
+    char addr_prop_value[PROPERTY_VALUE_MAX] = {'\0'};
     this->DNSServerLst.first();
     while (old = this->DNSServerLst.get()) {
         // for each already set server...
@@ -81,6 +84,8 @@ bool TClntIfaceIface::setDNSServerLst(SPtr<TDUID> duid, SPtr<TIPv6Addr> srv,
             dns_del(this->getName(), this->getID(), old->getPlain());
             this->delString(WORKDIR"/"OPTION_DNS_SERVERS_FILENAME,old->getPlain());
             this->DNSServerLst.del();
+			snprintf(addr_prop_name, sizeof(addr_prop_name), "dibbler.%s.dns1", this->getName());
+			property_set(addr_prop_name, "" );
         }
     }
 
@@ -106,6 +111,8 @@ bool TClntIfaceIface::setDNSServerLst(SPtr<TDUID> duid, SPtr<TIPv6Addr> srv,
             dns_add(this->getName(), this->getID(), addr->getPlain());
             this->addString(WORKDIR"/"OPTION_DNS_SERVERS_FILENAME,addr->getPlain());
             this->DNSServerLst.append(addr);
+			snprintf(addr_prop_name, sizeof(addr_prop_name), "dibbler.%s.dns1", this->getName());
+			property_set(addr_prop_name, addr->getPlain() );
         }
     }
     this->DNSServerLstAddr = srv;
@@ -116,6 +123,7 @@ bool TClntIfaceIface::setDNSServerLst(SPtr<TDUID> duid, SPtr<TIPv6Addr> srv,
 bool TClntIfaceIface::setDomainLst(SPtr<TDUID> duid, SPtr<TIPv6Addr> srv, List(std::string) domains) {
     // remove old domains
     SPtr<string> old, domain;
+
     this->DomainLst.first();
     while (old = this->DomainLst.get()) {
         // for each already domain ...
@@ -135,6 +143,7 @@ bool TClntIfaceIface::setDomainLst(SPtr<TDUID> duid, SPtr<TIPv6Addr> srv, List(s
             domain_del(this->getName(), this->getID(), old->c_str());
             this->delString(WORKDIR"/"OPTION_DOMAINS_FILENAME,old->c_str());
             this->DomainLst.del();
+
         }
     }
 
@@ -160,6 +169,7 @@ bool TClntIfaceIface::setDomainLst(SPtr<TDUID> duid, SPtr<TIPv6Addr> srv, List(s
             domain_add(this->getName(), this->getID(), domain->c_str());
             this->addString(WORKDIR"/"OPTION_DOMAINS_FILENAME,domain->c_str());
             this->DomainLst.append(domain);
+			
         }
     }
     this->DomainLstAddr = srv;
@@ -578,7 +588,7 @@ void TClntIfaceIface::setString(const char * filename, const char * str) {
 void TClntIfaceIface::removeAllOpts() {
     SPtr<TIPv6Addr> addr;
     SPtr<string> str;
-
+	char addr_prop_name[PROPERTY_KEY_MAX];
     // --- option: DNS-SERVER ---
     this->DNSServerLst.first();
     while (addr = this->DNSServerLst.get()) {
@@ -586,6 +596,8 @@ void TClntIfaceIface::removeAllOpts() {
                    << this->getName() << "/" << this->getID() <<" interface." << LogEnd;
         this->DNSServerLst.del();
         dns_del(this->getName(), this->getID(), addr->getPlain());
+		snprintf(addr_prop_name, sizeof(addr_prop_name), "dibbler.%s.dns1", this->getName());
+		property_set(addr_prop_name, "");
     }
 
     // --- option: DOMAIN ---

@@ -824,7 +824,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
 
 	switch (option->getOptType())
 	{
-
+	Log(Warning) << "FUCK !!!!Received option is : "<< option->getOptType()<<LogEnd;
 	case OPTION_IA_NA:
 	{
 	    SPtr<TClntOptIA_NA> clntOpt = (Ptr*)option;
@@ -860,6 +860,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
 	}
 	case OPTION_IA_TA:
 	{
+		 Log(Warning) << "TATATATATATATATATATATATA. "<< LogEnd;
 	    SPtr<TClntOptTA> ta = (Ptr*) option;
 	    if (ta->getStatusCode()!=STATUSCODE_SUCCESS) {
 		Log(Warning) << "Received TA (IAID=" << ta->getIAID() << ") with non-success status:"
@@ -889,6 +890,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
 
 	case OPTION_IA_PD:
 	{
+			 Log(Warning) << "PDPDPDPDPDPDPDPDPDPDPDPD. "<< LogEnd;
 	    SPtr<TClntOptIA_PD> pd = (Ptr*) option;
 
 	    if (pd->getStatusCode()!=STATUSCODE_SUCCESS) {
@@ -931,6 +933,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
             }
         case OPTION_NIS_SERVERS:
             {
+				 Log(Warning) << "NISNISNISNISNISNISNISNISNIS. "<< LogEnd;
                 SPtr<TOptAddrLst> nisservers = (Ptr*) option;
                 cfgIface->setNISServerState(STATE_CONFIGURED);
                 iface->setNISServerLst(duid, reply->getAddr(), nisservers->getAddrLst());
@@ -938,6 +941,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
             }
         case OPTION_NISP_SERVERS:
             {
+				Log(Warning) << "pNISpNISpNISpNISpNISpNISpNISpNISpNIS. "<< LogEnd;
                 SPtr<TOptAddrLst> nispservers = (Ptr*) option;
                 cfgIface->setNISPServerState(STATE_CONFIGURED);
                 iface->setNISPServerLst(duid, reply->getAddr(), nispservers->getAddrLst());
@@ -945,6 +949,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
             }
         case OPTION_SNTP_SERVERS:
             {
+				Log(Warning) << "SNTPSNTPSNTPSNTPSNTPSNTPSNTP. "<< LogEnd;
                 SPtr<TOptAddrLst> ntpservers = (Ptr*) option;
                 cfgIface->setNTPServerState(STATE_CONFIGURED);
                 iface->setNTPServerLst(duid, reply->getAddr(), ntpservers->getAddrLst());
@@ -952,6 +957,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
             }
         case OPTION_SIP_SERVER_A:
             {
+				Log(Warning) << "SIPSIPSIPSIPSIPSIPSIPSIPSIPSIP. "<< LogEnd;
                 SPtr<TOptAddrLst> sipservers = (Ptr*) option;
                 cfgIface->setSIPServerState(STATE_CONFIGURED);
                 iface->setSIPServerLst(duid, reply->getAddr(), sipservers->getAddrLst());
@@ -959,6 +965,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
             }
         case OPTION_DOMAIN_LIST:
             {
+				Log(Warning) << "DOMAINDOMAINDOMAINDOMAINDOMAIN. "<< LogEnd;
                 SPtr<TOptDomainLst> domains = (Ptr*) option;
                 cfgIface->setDomainState(STATE_CONFIGURED);
                 iface->setDomainLst(duid, reply->getAddr(), domains->getDomainLst() );
@@ -966,6 +973,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
             }
         case OPTION_SIP_SERVER_D:
             {
+				Log(Warning) << "***********OPTION_SIP_SERVER_D. "<< LogEnd;
                 SPtr<TOptDomainLst> sipdomains = (Ptr*) option;
                 cfgIface->setSIPDomainState(STATE_CONFIGURED);
                 iface->setSIPDomainLst(duid, reply->getAddr(), sipdomains->getDomainLst() );
@@ -973,6 +981,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
             }
         case OPTION_NIS_DOMAIN_NAME:
             {
+				Log(Warning) << "***********OPTION_NIS_DOMAIN_NAME. "<< LogEnd;
                 SPtr<TOptDomainLst> nisdomain = (Ptr*) option;
                 List(string) domains = nisdomain->getDomainLst();
                 if (domains.count() == 1) {
@@ -987,6 +996,7 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
             }
         case OPTION_NISP_DOMAIN_NAME:
             {
+				Log(Warning) << "***********OPTION_NISP_DOMAIN_NAME. "<< LogEnd;
                 SPtr<TOptDomainLst> nispdomain = (Ptr*) option;
                 List(string) domains = nispdomain->getDomainLst();
                 if (domains.count() == 1) {
@@ -1008,14 +1018,14 @@ void TClntMsg::answer(SPtr<TClntMsg> reply)
 	    break;
 	  }
 #endif
-
+	
 	case OPTION_IAADDR:
 	    Log(Warning) << "Option OPTION_IAADDR misplaced." << LogEnd;
 	    break;
 
 	default:
 	{
-
+		Log(Warning) << "***********default. "<< LogEnd;
 	    SPtr<TOpt> requestOpt;
 	    if ( optORO && (optORO->isOption(option->getOptType())) )
 		optORO->delOption(option->getOptType());
