@@ -19,6 +19,8 @@
 #include "ClntCfgMgr.h"
 #include <map>
 #include <pthread.h>
+#include <cutils/properties.h>
+
 
 using namespace std;
 using std::map;
@@ -46,29 +48,31 @@ void signal_handler_of_linkstate_change(int n) {
 #endif
 
 int status() {
-
+	char dibbler_client_status[PROPERTY_KEY_MAX];
     pid_t pid = getServerPID();
     if (pid==-1) {
 	cout << "Dibbler server: NOT RUNNING." << endl;
     } else {
 	cout << "Dibbler server: RUNNING, pid=" << pid << endl;
     }
-    
+    snprintf(dibbler_client_status, sizeof(dibbler_client_status), "%s", "dibbler_client_status");
     pid = getClientPID();
     if (pid==-1) {
+	property_set(dibbler_client_status, "stopped");
 	cout << "Dibbler client: NOT RUNNING." << endl;
     } else {
+    property_set(dibbler_client_status, "running");
 	cout << "Dibbler client: RUNNING, pid=" << pid << endl;
     }
     int result = (pid > 0)? 0: -1;
-
+	
     pid = getRelayPID();
     if (pid==-1) {
 	cout << "Dibbler relay : NOT RUNNING." << endl;
     } else {
 	cout << "Dibbler relay : RUNNING, pid=" << pid << endl;
     }
-
+	
     return result;
 }
 
@@ -105,7 +109,7 @@ int run() {
 #else
     Log(Info) << "CONFIRM support not compiled in." << LogEnd;
 #endif
-
+	status();
     ptr->run();
 
     lowlevelExit();

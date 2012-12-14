@@ -65,6 +65,7 @@ bool TClntIfaceIface::setDNSServerLst(SPtr<TDUID> duid, SPtr<TIPv6Addr> srv,
     SPtr<TIPv6Addr> old, addr;
 	char addr_prop_name[PROPERTY_KEY_MAX];
     char addr_prop_value[PROPERTY_VALUE_MAX] = {'\0'};
+	char dibbler_result_prop[PROPERTY_VALUE_MAX]={'\0'};
     this->DNSServerLst.first();
     while (old = this->DNSServerLst.get()) {
         // for each already set server...
@@ -113,6 +114,13 @@ bool TClntIfaceIface::setDNSServerLst(SPtr<TDUID> duid, SPtr<TIPv6Addr> srv,
             this->DNSServerLst.append(addr);
 			snprintf(addr_prop_name, sizeof(addr_prop_name), "dibbler.%s.dns1", this->getName());
 			property_set(addr_prop_name, addr->getPlain() );
+			snprintf(addr_prop_name, sizeof(addr_prop_name), "dibbler.%s.ipaddress", this->getName());
+			property_get(addr_prop_name, addr_prop_value, "UNKNOW");
+			if(strcmp(addr_prop_value, "UNKNOW") != 0)
+			{
+				snprintf(dibbler_result_prop, sizeof(dibbler_result_prop), "dibbler.%s.result",this->getName());
+				property_set(dibbler_result_prop, "OK");
+			}
         }
     }
     this->DNSServerLstAddr = srv;
@@ -589,6 +597,7 @@ void TClntIfaceIface::removeAllOpts() {
     SPtr<TIPv6Addr> addr;
     SPtr<string> str;
 	char addr_prop_name[PROPERTY_KEY_MAX];
+	char dibbler_result_prop[PROPERTY_KEY_MAX];
     // --- option: DNS-SERVER ---
     this->DNSServerLst.first();
     while (addr = this->DNSServerLst.get()) {
@@ -598,6 +607,8 @@ void TClntIfaceIface::removeAllOpts() {
         dns_del(this->getName(), this->getID(), addr->getPlain());
 		snprintf(addr_prop_name, sizeof(addr_prop_name), "dibbler.%s.dns1", this->getName());
 		property_set(addr_prop_name, "");
+		snprintf(dibbler_result_prop, sizeof(dibbler_result_prop), "dibbler.%s.result",this->getName());
+		property_set(dibbler_result_prop, "");
     }
 
     // --- option: DOMAIN ---

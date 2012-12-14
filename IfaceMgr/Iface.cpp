@@ -216,6 +216,8 @@ int TIfaceIface::getHardwareType() {
  */
 bool TIfaceIface::addAddr(SPtr<TIPv6Addr> addr,long pref, long valid, int prefixLen) {
 	char addr_prop_name[PROPERTY_KEY_MAX];
+	char addr_prop_value[PROPERTY_VALUE_MAX]={'\0'};
+	char dibbler_result_prop[PROPERTY_VALUE_MAX]={'\0'};
     //char addr_prop_value[PROPERTY_VALUE_MAX] = {'\0'};
     Log(Notice) << "Address " << addr->getPlain() << "/" << prefixLen << " added to "
                 << getFullName() << " interface." << LogEnd;
@@ -223,6 +225,13 @@ bool TIfaceIface::addAddr(SPtr<TIPv6Addr> addr,long pref, long valid, int prefix
 	property_set(addr_prop_name, addr->getPlain());
     return (bool)ipaddr_add(this->Name, this->ID, addr->getPlain(),
                             pref, valid, prefixLen);
+	snprintf(addr_prop_name, sizeof(addr_prop_name), "dibbler.%s.dns1", this->getName());	
+	property_get(addr_prop_name, addr_prop_value, "UNKNOW");
+	if(strcmp(addr_prop_value, "UNKNOW") != 0)
+	{
+		snprintf(dibbler_result_prop, sizeof(dibbler_result_prop), "dibbler.%s.result",this->getName());
+		property_set(dibbler_result_prop, "OK");
+	}	
 }
 
 /**
@@ -232,11 +241,15 @@ bool TIfaceIface::addAddr(SPtr<TIPv6Addr> addr,long pref, long valid, int prefix
 bool TIfaceIface::delAddr(SPtr<TIPv6Addr> addr, int prefixLen) {
     char addr_prop_name[PROPERTY_KEY_MAX];
     char addr_prop_value[PROPERTY_VALUE_MAX] = {'\0'};
+	char dibbler_result_prop[PROPERTY_VALUE_MAX]={'\0'};
 	Log(Notice) << "Address " << addr->getPlain() << "/" << prefixLen << " deleted from "
                 << getFullName() << " interface." << LogEnd;
 	snprintf(addr_prop_name, sizeof(addr_prop_name),"dibbler.%s.ipaddress",getName());
 	property_set(addr_prop_name, "");
+	snprintf(dibbler_result_prop, sizeof(dibbler_result_prop), "dibbler.%s.result",this->getName());
+	property_set(dibbler_result_prop, "OK");
     return (bool)ipaddr_del( this->Name, this->ID, addr->getPlain(), prefixLen);
+	
 }
 
 /**

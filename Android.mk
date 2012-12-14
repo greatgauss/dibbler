@@ -272,7 +272,8 @@ LOCAL_CFLAGS := \
 
 LOCAL_SHARED_LIBRARIES := \
 			libstlport \
-			libdibbler 
+			libdibbler \
+			libcutils
 
 LOCAL_MODULE = dibbler-client
 LOCAL_MODULE_TAGS := optional

@@ -205,6 +205,7 @@ int stop(const char * pidfile) {
     int saved_errno;
     int ptrace_failed, p_status;
 
+	
     pid_t pid = getPID(pidfile);
     if (pid==-1) {
 	cout << "Process is not running." << endl;
@@ -245,7 +246,7 @@ int stop(const char * pidfile) {
 	} while (! (WIFEXITED(p_status) || WIFSIGNALED(p_status)) );
 	cout << "Done." << endl;
     }
-
+	status();
     return 0;
 }
 
