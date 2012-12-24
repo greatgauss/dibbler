@@ -55,14 +55,11 @@ int status() {
     } else {
 	cout << "Dibbler server: RUNNING, pid=" << pid << endl;
     }
-    snprintf(dibbler_client_status, sizeof(dibbler_client_status), "%s", "dibbler_client_status");
     pid = getClientPID();
     if (pid==-1) {
-	property_set(dibbler_client_status, "stopped");
 	cout << "Dibbler client: NOT RUNNING." << endl;
     } else {
-    property_set(dibbler_client_status, "running");
-	cout << "Dibbler client: RUNNING, pid=" << pid << endl;
+    cout << "Dibbler client: RUNNING, pid=" << pid << endl;
     }
     int result = (pid > 0)? 0: -1;
 	
@@ -109,7 +106,7 @@ int run() {
 #else
     Log(Info) << "CONFIRM support not compiled in." << LogEnd;
 #endif
-	status();
+
     ptr->run();
 
     lowlevelExit();

@@ -246,7 +246,7 @@ int stop(const char * pidfile) {
 	} while (! (WIFEXITED(p_status) || WIFSIGNALED(p_status)) );
 	cout << "Done." << endl;
     }
-	status();
+	
     return 0;
 }
 
